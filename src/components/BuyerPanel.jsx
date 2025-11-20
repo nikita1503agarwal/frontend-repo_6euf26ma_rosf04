@@ -6,10 +6,11 @@ export default function BuyerPanel() {
   const [user, setUser] = useState(null)
   const [phone, setPhone] = useState('9000000030')
   const [name, setName] = useState('Buyer')
+  const [password, setPassword] = useState('')
   const [request, setRequest] = useState({ crops: ['tomato'], quantity_kg: 500, preference: 'pickup' })
 
   const login = async () => {
-    const res = await fetch(`${API}/auth/login`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ name, phone, role: 'buyer', language: 'en' })})
+    const res = await fetch(`${API}/auth/login`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ name, phone, role: 'buyer', password, language: 'en' })})
     const data = await res.json()
     setUser(data.user)
   }
@@ -25,6 +26,7 @@ export default function BuyerPanel() {
       <div className="flex gap-3">
         <input value={name} onChange={e=>setName(e.target.value)} placeholder="Name" className="bg-slate-800 text-white px-3 py-2 rounded"/>
         <input value={phone} onChange={e=>setPhone(e.target.value)} placeholder="Phone" className="bg-slate-800 text-white px-3 py-2 rounded"/>
+        <input type="password" value={password} onChange={e=>setPassword(e.target.value)} placeholder="Password" className="bg-slate-800 text-white px-3 py-2 rounded"/>
         <button onClick={login} className="px-4 py-2 bg-blue-600 text-white rounded">Login</button>
       </div>
 

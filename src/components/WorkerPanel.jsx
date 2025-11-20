@@ -7,9 +7,10 @@ export default function WorkerPanel() {
   const [profile, setProfile] = useState({ skills: ['harvesting'], wage_expectation: 600, availability_dates: [], max_distance_km: 25, home_location: { lat:12.98, lon:77.6 } })
   const [phone, setPhone] = useState('9000000020')
   const [name, setName] = useState('Suma')
+  const [password, setPassword] = useState('')
 
   const login = async () => {
-    const res = await fetch(`${API}/auth/login`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ name, phone, role: 'worker', language: 'en', location: profile.home_location })})
+    const res = await fetch(`${API}/auth/login`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ name, phone, role: 'worker', password, language: 'en', location: profile.home_location })})
     const data = await res.json()
     setUser(data.user)
   }
@@ -26,6 +27,7 @@ export default function WorkerPanel() {
       <div className="flex gap-3">
         <input value={name} onChange={e=>setName(e.target.value)} placeholder="Name" className="bg-slate-800 text-white px-3 py-2 rounded"/>
         <input value={phone} onChange={e=>setPhone(e.target.value)} placeholder="Phone" className="bg-slate-800 text-white px-3 py-2 rounded"/>
+        <input type="password" value={password} onChange={e=>setPassword(e.target.value)} placeholder="Password" className="bg-slate-800 text-white px-3 py-2 rounded"/>
         <button onClick={login} className="px-4 py-2 bg-blue-600 text-white rounded">Login</button>
       </div>
 

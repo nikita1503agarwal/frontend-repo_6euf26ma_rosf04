@@ -9,9 +9,10 @@ export default function FarmerPanel() {
   const [matches, setMatches] = useState([])
   const [phone, setPhone] = useState('9000000001')
   const [name, setName] = useState('Ravi')
+  const [password, setPassword] = useState('')
 
   const login = async () => {
-    const res = await fetch(`${API}/auth/login`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ name, phone, role: 'farmer', language: 'en', location })})
+    const res = await fetch(`${API}/auth/login`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ name, phone, role: 'farmer', password, language: 'en', location })})
     const data = await res.json()
     setUser(data.user)
   }
@@ -33,6 +34,7 @@ export default function FarmerPanel() {
       <div className="flex gap-3">
         <input value={name} onChange={e=>setName(e.target.value)} placeholder="Name" className="bg-slate-800 text-white px-3 py-2 rounded"/>
         <input value={phone} onChange={e=>setPhone(e.target.value)} placeholder="Phone" className="bg-slate-800 text-white px-3 py-2 rounded"/>
+        <input type="password" value={password} onChange={e=>setPassword(e.target.value)} placeholder="Password" className="bg-slate-800 text-white px-3 py-2 rounded"/>
         <button onClick={login} className="px-4 py-2 bg-blue-600 text-white rounded">Login</button>
       </div>
       {user && (
